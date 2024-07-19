@@ -1,0 +1,14 @@
+ONE-WAY DATA BINDING: 
+-> also called "UNI-DIRECTIONAL DATA FLOW"  
+-> yeh react mai hot ahy
+-> jb data update hoga, tb hi UI update hogi
+-> jb bhi input field pr data hoga, tb hm state o update kreingein,(hm state ko hi update krskte hain dom ko nhi)
+   woh updates state jakr dom ko update krdeygi.
+
+TWO-WAY DATA BINDING:
+-> dsre frameworks mai hota hy jaise k angular/vue
+-> hamy yeh btana nhi prta k change krne pr state update kro uske bd render kro
+    onChange={(e) => {setTitle(e.target.value)}}
+   yhn hmne khud update kra h, angular/vue mai aisa nhi hota, jaise jaise type kro 
+   woh khud update hojata h
+-> hm screen ko update krte hain, woh hamary data ko bhi update krdeta hy
