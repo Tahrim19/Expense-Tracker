@@ -54,11 +54,11 @@ export default function ExpenseTable({expenses}) {
             <td>{amount}</td>
         </tr>
         ))}
-        {/* <tr>
+        <tr>
             <th>Total</th>
             <th></th>
             <th>8100</th>
-        </tr> */}
+        </tr>
         </tbody>
     </table>
     </>

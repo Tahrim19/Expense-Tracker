@@ -24,11 +24,11 @@ export default function ExpenseForm({setExpenses}) {
             <label htmlFor="category">Category</label>
             <select id='category' name='category' value={expense.category} onChange={(e) => setExpense((prevState)=>({...prevState, category: e.target.value}))}> 
                 <option value="" hidden>Select category</option>
-                <option value="grocery">Grocery</option>
-                <option value="clothes">Clothes</option>
-                <option value="bills">Bills</option>
-                <option value="education">Education</option>
-                <option value="medicine">Medicine</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Clothes">Clothes</option>
+                <option value="Bills">Bills</option>
+                <option value="Education">Education</option>
+                <option value="Medicine">Medicine</option>
             </select>
         </div>
         <div className="input-container">
