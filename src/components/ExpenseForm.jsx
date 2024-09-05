@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 export default function ExpenseForm({setExpenses}) {
   const [expense , setExpense] = useState({
@@ -7,21 +7,46 @@ export default function ExpenseForm({setExpenses}) {
     amount:''
   })
 
-  // const titleRef = useRef(null)
-  // const categoryRef = useRef(null)
-  // const amountRef = useRef(null)
+  const [errors , setErrors] = useState({});
+  const validate = (FormData) => {
+    const errorsData = {};
+    if(!FormData.title){
+      errorsData.title = 'Title is required!';
+    }
+
+    if(!FormData.category){
+      errorsData.category = 'Category is required!';
+    }
+
+    if(!FormData.amount){
+      errorsData.amount = 'Amount is required!';
+    }
+
+    setErrors(errorsData);
+    return errorsData;
+  }
 
   function handleSubmit(e) {
-    e.preventDefault() // prevents the page from reloading when add button is clicked
-    setExpenses((prevState) => [...prevState,{...expense , id:crypto.randomUUID()}])
-    // console.log({
-    //   title: titleRef.current.value, 
-    //   category:categoryRef.current.value, 
-    //   amount: amountRef.current.value,
-    //   id:crypto.randomUUID()
-    // })
+    e.preventDefault(); // prevents the page from reloading when add button is clicked
+    const validationResult = validate(expense); 
+    if(Object.keys(validationResult).length){ // object.keys will make sure that empty values wouldnt be added in the table.
+      return
+    }
+    setExpenses((prevState) =>
+      [...prevState,{...expense, 
+        id:crypto.randomUUID()}
+      ]);
+
   }
-  
+
+  const handleChange = (e) => {
+    const {name , value} = e.target;
+     setExpense((prevState) =>
+      ({...prevState, 
+        [name]: value,}))
+    setErrors[{}]
+  }
+
   return (
     <>
     <form className="expense-form" onSubmit={handleSubmit}>
@@ -31,9 +56,9 @@ export default function ExpenseForm({setExpenses}) {
               id="title" 
               name='title' 
               value={expense.title} 
-              onChange={(e) => setExpense((prevState)=>({...prevState, title: e.target.value}))}
-              //ref={titleRef}
+              onChange={handleChange}
             />
+            <p className='error'>{errors.title}</p>
         </div>
         <div className="input-container">
             <label htmlFor="category">Category</label>
@@ -41,8 +66,7 @@ export default function ExpenseForm({setExpenses}) {
               id='category' 
               name='category' 
               value={expense.category} 
-              onChange={(e) => setExpense((prevState)=>({...prevState, category: e.target.value}))}
-              //ref={categoryRef}
+              onChange={handleChange}
             >   
                 <option value="" hidden>Select category</option>
                 <option value="Grocery">Grocery</option>
@@ -51,6 +75,7 @@ export default function ExpenseForm({setExpenses}) {
                 <option value="Education">Education</option>
                 <option value="Medicine">Medicine</option>
             </select>
+            <p className='error'>{errors.category}</p>
         </div>
         <div className="input-container">
             <label htmlFor="amount">Amount</label>
@@ -58,9 +83,9 @@ export default function ExpenseForm({setExpenses}) {
               id="amount" 
               name='amount'
               value={expense.amount} 
-              onChange={(e) => setExpense((prevState)=>({...prevState, amount: e.target.value}))}
-              //ref={amountRef}
+              onChange={handleChange}
             />
+            <p className='error'>{errors.amount}</p>
         </div>
         <button className="add-btn">Add</button>
     </form>
