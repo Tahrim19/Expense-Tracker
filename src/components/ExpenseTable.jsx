@@ -1,6 +1,15 @@
 import React from 'react'
 
 export default function ExpenseTable({expenses}) {
+    const totalAmount = (expenses) => {
+        let total = 0;
+        for (let i = 0; i < expenses.length; i++) {
+            const amount = parseFloat(expenses[i].amount);
+            total += isNaN(amount) ? 0 : amount;
+        }
+        return total;
+    };
+
   return (
     <>
     <table className="expense-table">
@@ -57,7 +66,7 @@ export default function ExpenseTable({expenses}) {
         <tr>
             <th>Total</th>
             <th></th>
-            <th>8100</th>
+            <th>{totalAmount(expenses)}</th>
         </tr>
         </tbody>
     </table>
