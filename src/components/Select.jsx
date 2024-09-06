@@ -11,8 +11,8 @@ export default function Select({id,label,name,value,onChange,error,options}) {
           onChange={onChange}
         >   
           <option value="" hidden>Select category</option>
-          {options.map((option)=> 
-            <option value={option}>{option}</option>
+          {options.map((option ,i)=> 
+            <option key={i} value={option}>{option}</option>
           )}
         </select>
         <p className='error'>{error}</p>
