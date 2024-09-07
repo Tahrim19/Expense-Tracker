@@ -1,14 +1,13 @@
 import React from 'react'
+import { useFilter } from '../hooks/useFilter';
 
 export default function ExpenseTable({expenses}) {
-    const totalAmount = (expenses) => {
-        let total = 0;
-        for (let i = 0; i < expenses.length; i++) {
-            const amount = parseFloat(expenses[i].amount);
-            total += isNaN(amount) ? 0 : amount;
-        }
-        return total;
-    };
+    const [filteredData, setQuery] = useFilter(expenses, (data) => data.category)
+    
+    const totalAmount = filteredData.reduce(
+        (accumulator, current) => accumulator + current.amount,
+        0
+    )
 
   return (
     <>
@@ -17,7 +16,7 @@ export default function ExpenseTable({expenses}) {
         <tr>
             <th>Title</th>
             <th>
-            <select>
+            <select onChange={(e) => setQuery(e.target.value.toLowerCase())}>
                 <option value="">All</option>
                 <option value="grocery">Grocery</option>
                 <option value="clothes">Clothes</option>
@@ -56,7 +55,7 @@ export default function ExpenseTable({expenses}) {
         </tr>
         </thead>
         <tbody>
-        {expenses.map(({id , title , category , amount}) => (
+        {filteredData.map(({id , title , category , amount}) => (
             <tr key={id}>
             <td>{title}</td>
             <td>{category}</td>
@@ -66,7 +65,7 @@ export default function ExpenseTable({expenses}) {
         <tr>
             <th>Total</th>
             <th></th>
-            <th>{totalAmount(expenses)}</th>
+            <th>{totalAmount}</th>
         </tr>
         </tbody>
     </table>
