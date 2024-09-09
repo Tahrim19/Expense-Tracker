@@ -51,6 +51,9 @@ export default function ExpenseTable({
                 width="10"
                 viewBox="0 0 384 512"
                 className="arrow up-arrow"
+                onClick={()=>{
+                    setExpenses((prevState) => prevState.sort((a,b)=> a.amount - b.amount))
+                }}
                 >
                 <title>Ascending</title>
                 <path
@@ -62,6 +65,9 @@ export default function ExpenseTable({
                 width="10"
                 viewBox="0 0 384 512"
                 className="arrow down-arrow"
+                onClick={()=>{
+                    setExpenses((prevState) => prevState.sort((a,b)=> b.amount - a.amount))
+                }}
                 >
                 <title>Descending</title>
                 <path
