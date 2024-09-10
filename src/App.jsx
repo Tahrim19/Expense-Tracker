@@ -1,18 +1,18 @@
-import { useState } from 'react'
 import './App.css'
 import ContextMenu from './components/ContextMenu'
 import ExpenseForm from './components/ExpenseForm'
 import ExpenseTable from './components/ExpenseTable'
 import expenseData from './expenseData'
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 function App() {
-   const[expenses , setExpenses] = useState(expenseData)
-   const [expense , setExpense] = useState({
+   const[expenses , setExpenses] = useLocalStorage('expenses',expenseData)
+   const [expense , setExpense] = useLocalStorage('' , {
     title: '',
     category: '',
     amount:''
   })
-  const [editingRowId , setEditingRowId] = useState('')
+  const [editingRowId , setEditingRowId] = useLocalStorage('editingRowId', '')
   return (
     <>
     <main>

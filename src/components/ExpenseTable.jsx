@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useFilter } from '../hooks/useFilter';
 import ContextMenu from './ContextMenu';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export default function ExpenseTable({
     setExpense,
@@ -9,7 +10,7 @@ export default function ExpenseTable({
     setEditingRowId 
 }) {
     const [filteredData, setQuery] = useFilter(expenses, (data) => data.category)
-    const [menuPosition , SetMenuPosition] = useState({})
+    const [menuPosition , SetMenuPosition] = useLocalStorage('menuPosition' , {})
     const [rowId , setRowId] = useState('')
     const [sortCallback, setSortCallback] = useState(()=>{()=>{}})
 
